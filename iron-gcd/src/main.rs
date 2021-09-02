@@ -4,8 +4,12 @@ use iron::prelude::*;
 use iron::{status,mime};
 
 fn main() {
+    let mut router = router::Router::new();
+
+    router.get("/", get_form, "root");
+
     println!("Serving on http://localhost:3000...");
-    Iron::new(get_form).http("localhost:3000").unwrap();
+    Iron::new(router).http("localhost:3000").unwrap();
 }
 
 fn get_form(_request: &mut Request) -> IronResult<Response> {
