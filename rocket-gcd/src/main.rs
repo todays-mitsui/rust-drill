@@ -29,7 +29,9 @@ struct GcdOperands {
 
 #[post("/gcd", data = "<operands>")]
 fn post_gcd(operands: form::Form<GcdOperands>) -> String {
-    format!("m = {}, n = {}", operands.m, operands.n)
+    let d = gcd(operands.m, operands.n);
+
+    format!("The greatest common divisor of the numbers [{}, {}] is {}\n", operands.m, operands.n, d)
 }
 
 fn gcd(mut m: u64, mut n: u64) -> u64 {
