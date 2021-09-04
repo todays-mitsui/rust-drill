@@ -8,7 +8,7 @@ fn main() {
     println!("{:?}", complex_square_add_loop(c, 128));
 }
 
-fn complex_square_add_loop(c: Complex<f64>, limit: u32) -> Option<u32> {
+fn escape_time(c: Complex<f64>, limit: u32) -> Option<u32> {
     let mut z = Complex { re: 0.0, im: 0.0 };
 
     for i in 0..limit {
@@ -82,4 +82,24 @@ fn test_pixel_to_point() {
         pixel_to_point((100, 100), (25, 75), Complex { re: -1.0, im: 1.0 }, Complex { re: 1.0, im: -1.0}),
         Complex { re: -0.5, im: -0.5 }
     );
+}
+
+fn render(
+    pixcels: &mut [u8],
+    bounds: (usize, usize),
+    upper_left: Complex<f64>,
+    lower_right: Complex<f64>,
+) {
+    assert!(pixcels.len() == bounds.0 * bounds.1);
+
+    for row in 0 .. bounds.0 {
+        for column in 0 .. bounds.1 {
+            let point = pixel_to_point(bounds, (column, row), upper_left, lower_right);
+
+            pixcels[row * bounds.0 + column] = match escape_time(point, 255) {
+                None => 0,
+                Some(count) => 255 - (count as u8),
+            };
+        }
+    }
 }
