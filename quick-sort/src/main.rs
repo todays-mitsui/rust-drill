@@ -1,6 +1,8 @@
 use std::cmp::Ordering;
 
 fn sort<T: Ord + Clone>(xs: Vec<T>) -> Vec<T> {
+
+
     if xs.len() == 0 { return Vec::new(); }
 
     let pivot = &xs[0];
@@ -24,6 +26,10 @@ fn sort<T: Ord + Clone>(xs: Vec<T>) -> Vec<T> {
     result.append(&mut sort(greater));
 
     return result;
+}
+
+fn partition<T: Ord + Clone>(xs: Vec<T>, pivot: T2, left: usize, right: usize) {
+    while
 }
 
 #[test]
