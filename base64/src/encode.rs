@@ -55,7 +55,7 @@ pub fn encode<T: AsRef<[u8]>>(input: T) -> String {
         ]);
     }
 
-    std::str::from_utf8(base64_output.as_ref()).unwrap().to_string()
+    std::str::from_utf8(&base64_output).unwrap().to_string()
 }
 
 #[test]

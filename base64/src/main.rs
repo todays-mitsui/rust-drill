@@ -2,7 +2,15 @@ mod encode;
 mod decode;
 
 fn main() {
-    println!("main");
+    let original = "abcde";
+    let encoded = encode::encode(original);
+    println!("\"{}\" == Base64 encode ==> \"{}\"", original, encoded);
+
+    let base64 = "YWJjZGU=";
+    match decode::decode(base64) {
+        Some(decoded) => println!("\"{}\" <== Base64 decode == \"{}\"", decoded, base64),
+        None => println!("\"{}\" is Invalid Base64 Str.", base64),
+    }
 }
 
 #[test]
